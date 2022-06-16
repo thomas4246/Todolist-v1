@@ -8,6 +8,9 @@ const port = process.env.PORT || 3000;
 //bodyparser
 app.use(express.json());
 
+//EJS
+app.set('view engine', 'ejs');
+
 //GET
 app.get('/', (req, res) => {
   res.send('hi');
