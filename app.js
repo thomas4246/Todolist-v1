@@ -1,11 +1,13 @@
 //imports
 const express = require('express');
-const path = require('path');
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 let newItems = [];
+
+//Set static folder
+app.use(express.static('public'));
 
 //bodyparser
 app.use(express.urlencoded({ extended: true }));
