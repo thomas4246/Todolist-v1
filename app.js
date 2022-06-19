@@ -1,10 +1,11 @@
 //imports
 const express = require('express');
+const date = require(__dirname + '/date.js');
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-let newItems = [];
+const newItems = [];
 
 //Set static folder
 app.use(express.static('public'));
@@ -17,16 +18,7 @@ app.set('view engine', 'ejs');
 
 //GET
 app.get('/', (req, res) => {
-  let today = new Date();
-
-  let option = {
-    weekday: 'long',
-    day: 'numeric',
-    month: 'long',
-  };
-
-  let day = today.toLocaleDateString('en-US', option);
-
+  let day = date.getDate();
   res.render('index', { day: day, newTodo: newItems });
 });
 
