@@ -1,1 +1,3 @@
-This is a project for learing how to use EJS in express.
+# To do list
+
+This is a project for learing how to use EJS.
