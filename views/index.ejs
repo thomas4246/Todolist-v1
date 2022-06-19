@@ -8,17 +8,32 @@
     <title>To Do List</title>
   </head>
   <body>
-    <h1><%= day %></h1>
+    <!-- Date -->
+    <div class="box" id="heading">
+      <h1><%= day %></h1>
+    </div>
 
-    <ul>
+    <!-- Todo List -->
+    <div class="box">
       <% for (let i = 0; i < newTodo.length; i++) { %>
-      <li><%= newTodo [i] %></li>
+      <div class="item">
+        <input type="checkbox" />
+        <p><%= newTodo [i] %></p>
+      </div>
       <% } %>
-    </ul>
 
-    <form action="/" method="post">
-      <input type="text" name="todo" />
-      <button type="submit" name="button">Add to list</button>
-    </form>
+      <form action="/" method="post" class="item">
+        <input
+          type="text"
+          name="todo"
+          placeholder="Add a new item"
+          autocomplete="off"
+        />
+        <button type="submit" name="button">+</button>
+      </form>
+    </div>
   </body>
+  <footer>
+    <p>© 2022 Thomas Lin. All rights reserved.</p>
+  </footer>
 </html>

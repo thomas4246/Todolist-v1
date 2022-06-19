@@ -33,7 +33,9 @@ app.get('/', (req, res) => {
 app.post('/', (req, res) => {
   let newItem = req.body.todo;
 
-  newItems.push(newItem);
+  newItem === ''
+    ? console.error('It can not be blink')
+    : newItems.push(newItem);
 
   res.redirect('/');
 });

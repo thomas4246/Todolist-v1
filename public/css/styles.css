@@ -1,8 +1,17 @@
 html {
   background-color: #e4e9fd;
-  background-image: -webkit-linear-gradient(65deg, #a683e3 50%, #e4e9fd 50%);
+  background: rgb(238, 174, 202);
+  background: radial-gradient(
+    circle,
+    rgba(238, 174, 202, 1) 0%,
+    rgba(148, 187, 233, 1) 100%
+  );
   min-height: 1000px;
   font-family: 'helvetica neue';
+}
+
+body {
+  margin-top: 10%;
 }
 
 h1 {
@@ -64,8 +73,8 @@ button {
   background-color: #a683e3;
   color: #fff;
   font-size: 30px;
-  padding-bottom: 6px;
   border-width: 0;
+  cursor: pointer;
 }
 
 input[type='text'] {
@@ -90,7 +99,12 @@ input[type='text']:focus {
 }
 
 footer {
-  color: white;
-  color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  bottom: 0;
+  width: 100%;
   text-align: center;
+}
+
+footer p {
+  font-size: 15px;
 }
