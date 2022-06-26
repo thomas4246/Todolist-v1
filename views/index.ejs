@@ -15,12 +15,12 @@
 
     <!-- Todo List -->
     <div class="box">
-      <% for (let i = 0; i < newTodo.length; i++) { %>
+      <% newTodo.forEach(todo => { %>
       <div class="item">
         <input type="checkbox" />
-        <p><%= newTodo [i] %></p>
+        <p><%= todo.name %></p>
       </div>
-      <% } %>
+      <% }) %>
 
       <form action="/" method="post" class="item">
         <input

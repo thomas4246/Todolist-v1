@@ -6,8 +6,6 @@ const mongoose = require('mongoose');
 const app = express();
 const port = process.env.PORT || 3000;
 
-const newItems = [];
-
 //setup DB connection
 main().catch((err) => console.log(err));
 
@@ -40,12 +38,6 @@ const todo3 = new item({
 //Insert default items into Items collection
 const defaultItems = [todo1, todo2, todo3];
 
-item.insertMany(defaultItems, (err) =>
-  err
-    ? console.log(err)
-    : console.log('Successfully added the items to the Items collection')
-);
-
 //Set static folder
 app.use(express.static('public'));
 
@@ -58,7 +50,20 @@ app.set('view engine', 'ejs');
 //GET
 app.get('/', (req, res) => {
   let day = date.getDate();
-  res.render('index', { day: day, newTodo: newItems });
+
+  //Add defualt todos when the nothing in the list.
+  item.find({}, (err, foundItems) =>
+    foundItems.length === 0
+      ? item.insertMany(defaultItems, (err) => {
+          err
+            ? console.log(err)
+            : console.log(
+                'Successfully added the items to the Items collection'
+              );
+          res.redirect('/');
+        })
+      : res.render('index', { day: day, newTodo: foundItems })
+  );
 });
 
 app.post('/', (req, res) => {
