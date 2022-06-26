@@ -37,10 +37,10 @@ const todo3 = new item({
   name: '<-- Hit this to delete an item',
 });
 
-//Insert defult items into Items collection
-const defultItems = [todo1, todo2, todo3];
+//Insert default items into Items collection
+const defaultItems = [todo1, todo2, todo3];
 
-item.insertMany(defultItems, (err) =>
+item.insertMany(defaultItems, (err) =>
   err
     ? console.log(err)
     : console.log('Successfully added the items to the Items collection')
