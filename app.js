@@ -65,13 +65,14 @@ app.get('/', (req, res) => {
   );
 });
 
+//POST
 app.post('/', (req, res) => {
-  let newItem = req.body.todo;
+  const itemName = req.body.todo;
+  const newTodo = new item({
+    name: itemName,
+  });
 
-  newItem === ''
-    ? console.error('It can not be blink')
-    : newItems.push(newItem);
-
+  newTodo.save();
   res.redirect('/');
 });
 
