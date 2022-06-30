@@ -46,6 +46,14 @@ const todo3 = new item({
 
 const defaultItems = [todo1, todo2, todo3];
 
+//List schema
+const listSchema = mongoose.Schema({
+  name: String,
+  item: [itemsSchema],
+});
+
+const list = mongoose.model('list', listSchema);
+
 //GET
 app.get('/', (req, res) => {
   let day = date.getDate();
@@ -63,6 +71,30 @@ app.get('/', (req, res) => {
         })
       : res.render('index', { day: day, newTodo: foundItems })
   );
+});
+
+//GET dynamic route
+app.get('/:listName', (req, res) => {
+  const listName = req.params.listName;
+  //checking if the list is already exist
+  list.findOne({ name: listName }, (err, foundList) => {
+    if (err) {
+      console.log(err);
+    }
+    if (!foundList) {
+      // create a new list
+      const newList = new list({
+        name: listName,
+        item: defaultItems,
+      });
+
+      newList.save();
+      res.redirect('/' + listName);
+    } else {
+      // show the existing list
+      res.render('index', { day: foundList.name, newTodo: foundList.item });
+    }
+  });
 });
 
 //POST
