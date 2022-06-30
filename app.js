@@ -74,8 +74,11 @@ app.get('/', (req, res) => {
 
 //GET dynamic route
 app.get('/:listName', (req, res) => {
-  const listName = req.params.listName;
-  //checking if the list is already exist
+  // capitlized the first letter
+  let listName = req.params.listName;
+  listName = listName.charAt(0).toUpperCase() + listName.slice(1);
+
+  // checking if the list is already exist
   list.findOne({ name: listName }, (err, foundList) => {
     if (err) {
       console.log(err);
