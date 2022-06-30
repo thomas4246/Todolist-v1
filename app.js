@@ -49,15 +49,14 @@ const defaultItems = [todo1, todo2, todo3];
 //List schema
 const listSchema = mongoose.Schema({
   name: String,
-  item: [itemsSchema],
+  items: [itemsSchema],
 });
 
 const list = mongoose.model('list', listSchema);
 
+const day = date.getDate();
 //GET
 app.get('/', (req, res) => {
-  let day = date.getDate();
-
   //Insert defualt todos when the nothing in the list.
   item.find({}, (err, foundItems) =>
     foundItems.length === 0
@@ -69,7 +68,7 @@ app.get('/', (req, res) => {
               );
           res.redirect('/');
         })
-      : res.render('index', { day: day, newTodo: foundItems })
+      : res.render('index', { title: day, newTodo: foundItems })
   );
 });
 
@@ -85,14 +84,14 @@ app.get('/:listName', (req, res) => {
       // create a new list
       const newList = new list({
         name: listName,
-        item: defaultItems,
+        items: defaultItems,
       });
 
       newList.save();
       res.redirect('/' + listName);
     } else {
       // show the existing list
-      res.render('index', { day: foundList.name, newTodo: foundList.item });
+      res.render('index', { title: foundList.name, newTodo: foundList.items });
     }
   });
 });
@@ -100,12 +99,25 @@ app.get('/:listName', (req, res) => {
 //POST
 app.post('/', (req, res) => {
   const itemName = req.body.todo;
+  const listName = req.body.button;
+
   const newTodo = new item({
     name: itemName,
   });
 
-  newTodo.save();
-  res.redirect('/');
+  if (listName == day) {
+    newTodo.save();
+    res.redirect('/');
+  } else {
+    // adding new items to the custom routes
+    list.findOne({ name: listName }, (err, foundList) => {
+      if (!err) {
+        foundList.items.push(newTodo);
+        foundList.save();
+        res.redirect('/' + listName);
+      }
+    });
+  }
 });
 
 //POST /delete

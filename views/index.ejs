@@ -10,7 +10,7 @@
   <body>
     <!-- Date -->
     <div class="box" id="heading">
-      <h1><%= day %></h1>
+      <h1><%= title %></h1>
     </div>
 
     <!-- Todo List -->
@@ -39,7 +39,7 @@
           autocomplete="off"
           spellcheck="true"
         />
-        <button type="submit" name="button">+</button>
+        <button type="submit" name="button" value="<%= title %>">+</button>
       </form>
     </div>
   </body>
