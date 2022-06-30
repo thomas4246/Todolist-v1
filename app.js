@@ -57,7 +57,7 @@ app.get('/', (req, res) => {
           err
             ? console.log(err)
             : console.log(
-                'Successfully added the items to the Items collection'
+                'Successfully added the default items to the Items collection'
               );
           res.redirect('/');
         })
@@ -73,6 +73,18 @@ app.post('/', (req, res) => {
   });
 
   newTodo.save();
+  res.redirect('/');
+});
+
+//POST /delete
+app.post('/delete', (req, res) => {
+  const checkedItem = req.body.checkbox;
+
+  item.findByIdAndRemove(checkedItem, (err) => {
+    err
+      ? console.log(err)
+      : console.log('Succeefully deleted the item from the list.');
+  });
   res.redirect('/');
 });
 
