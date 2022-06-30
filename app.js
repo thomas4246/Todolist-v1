@@ -123,13 +123,28 @@ app.post('/', (req, res) => {
 //POST /delete
 app.post('/delete', (req, res) => {
   const checkedItem = req.body.checkbox;
+  const listName = req.body.listName;
 
-  item.findByIdAndRemove(checkedItem, (err) => {
-    err
-      ? console.log(err)
-      : console.log('Succeefully deleted the item from the list.');
-  });
-  res.redirect('/');
+  if (listName == day) {
+    // check if it's on the "/" route
+    item.findByIdAndRemove(checkedItem, (err) => {
+      if (!err) {
+        console.log('Succeefully deleted the item from the list.');
+      }
+    });
+    res.redirect('/');
+  } else {
+    // if it's on a custom route
+    list.findOneAndUpdate(
+      { name: listName },
+      { $pull: { items: { _id: checkedItem } } },
+      (err, foundList) => {
+        if (!err) {
+          res.redirect('/' + listName);
+        }
+      }
+    );
+  }
 });
 
 //listen
