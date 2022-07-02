@@ -17,7 +17,7 @@ app.set('view engine', 'ejs');
 
 //setup DB connection
 const url =
-  'mongodb+srv://admin-thomas:popotan00@atlascluster.jng7mmu.mongodb.net/';
+  'mongodb+srv://admin-thomas:Test123@atlascluster.jng7mmu.mongodb.net/';
 
 main().catch((err) => console.log(err));
 
