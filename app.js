@@ -16,10 +16,13 @@ app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 
 //setup DB connection
+const url =
+  'mongodb+srv://admin-thomas:popotan00@atlascluster.jng7mmu.mongodb.net/';
+
 main().catch((err) => console.log(err));
 
 async function main() {
-  await mongoose.connect('mongodb://localhost:27017/todolistDB');
+  await mongoose.connect(url + 'todolistDB');
 }
 
 //Item schema
